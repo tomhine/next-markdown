@@ -10,7 +10,7 @@ const Layout = ({ children }: Props) => {
       <header className="bg-header-dark flex h-16 w-full items-center justify-between">
         {/* Header left */}
         <div className="flex h-full items-center gap-6">
-          <button className="flex h-full w-16 items-center justify-center bg-[#353840]">
+          <button className="flex h-full w-16 items-center justify-center bg-main-extralight">
             <MenuIcon className="h-8 w-8" />
           </button>
           <div className="flex items-center space-x-6 divide-x-[1px] divide-neutral-600">
