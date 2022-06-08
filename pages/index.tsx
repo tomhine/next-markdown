@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
-import { useMarkdownStore } from "../store/markdown";
+import { useDocumentStore } from "../store/document";
 import ReactMarkdown from "react-markdown";
 import { useEffect } from "react";
 
 const Home: NextPage = () => {
-  const mkd = useMarkdownStore(state => state.markdown);
-  const setMkd = useMarkdownStore(state => state.setMarkdown);
+  const mkd = useDocumentStore(state => state.markdown);
+  const setMkd = useDocumentStore(state => state.setMarkdown);
 
   useEffect(() => {
     if (window?.localStorage?.getItem("markdown")) {
