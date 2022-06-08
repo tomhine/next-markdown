@@ -1,12 +1,13 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import { useMarkdownStore } from "../store/markdown";
 import ReactMarkdown from "react-markdown";
 
 const Home: NextPage = () => {
-  const [input, setInput] = useState("");
+  const mkd = useMarkdownStore(state => state.markdown);
+  const setMkd = useMarkdownStore(state => state.setMarkdown);
 
   const handleMarkdownInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInput(e.currentTarget.value);
+    setMkd(e.currentTarget.value);
   };
 
   return (
@@ -18,7 +19,7 @@ const Home: NextPage = () => {
         <textarea
           name="markdown-input"
           className="h-full w-full resize-none bg-transparent p-4 font-mono outline-none"
-          value={input}
+          value={mkd}
           onChange={handleMarkdownInput}
         ></textarea>
       </section>
@@ -27,7 +28,7 @@ const Home: NextPage = () => {
           <h2 className="text-sm font-medium">PREVIEW</h2>
         </header>
         <div className="prose prose-invert h-full w-full p-4">
-          <ReactMarkdown>{input}</ReactMarkdown>
+          <ReactMarkdown>{mkd}</ReactMarkdown>
         </div>
       </section>
     </main>
