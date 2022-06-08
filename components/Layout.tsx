@@ -7,6 +7,7 @@ type Props = {
 
 const Layout = ({ children }: Props) => {
   const clearCurrentMkd = useMarkdownStore(state => state.clearMarkdown);
+  const saveCurrentMkd = useMarkdownStore(state => state.saveMarkdown);
 
   return (
     <div className="min-h-screen bg-main-light text-white">
@@ -38,6 +39,7 @@ const Layout = ({ children }: Props) => {
           <button
             type="button"
             className="flex items-center gap-2 rounded bg-main-orange px-4 py-2 text-sm text-white"
+            onClick={saveCurrentMkd}
           >
             <SaveIcon className="h-5 w-5" />
             Save changes

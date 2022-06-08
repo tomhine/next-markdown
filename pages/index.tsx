@@ -1,10 +1,17 @@
 import type { NextPage } from "next";
 import { useMarkdownStore } from "../store/markdown";
 import ReactMarkdown from "react-markdown";
+import { useEffect } from "react";
 
 const Home: NextPage = () => {
   const mkd = useMarkdownStore(state => state.markdown);
   const setMkd = useMarkdownStore(state => state.setMarkdown);
+
+  useEffect(() => {
+    if (window?.localStorage?.getItem("markdown")) {
+      setMkd(window?.localStorage?.getItem("markdown")!);
+    }
+  }, [setMkd]);
 
   const handleMarkdownInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMkd(e.currentTarget.value);
