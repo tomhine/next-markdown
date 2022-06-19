@@ -8,11 +8,46 @@ const MarkdownEditor = () => {
   const textArea = useRef<HTMLTextAreaElement | null>(null);
 
   const handleHeadingButtonClick = () => {
-    console.log(textArea?.current?.selectionStart);
+    if (!textArea.current) return;
+
+    const mkdArray = mkd.split("");
+    const start = textArea.current.selectionStart;
+    const end = textArea.current.selectionEnd;
+    const selectionDiff = end - start;
+
+    let prepend = "";
+    let offset = 0;
+
+    if (start === 0) {
+      prepend = "# ";
+      offset = 2;
+    } else if (mkdArray[start - 2] === "#") {
+      const headingCheckArray = mkd.substring(start - 7, start - 1).split("");
+      let headingLevel = 0;
+      headingCheckArray.forEach(h => h === "#" && headingLevel++);
+      if (headingLevel === 6) {
+        mkdArray.splice(start - 7, 7);
+        prepend = "";
+      } else {
+        mkdArray.splice(start - 1, 1);
+        prepend = "# ";
+        offset = headingLevel + 1;
+      }
+    } else if (mkdArray[start - 1] !== "\n") {
+      prepend = "\n# ";
+      offset = 3;
+    } else {
+      prepend = "# ";
+      offset = 2;
+    }
+    mkdArray.splice(start, 0, prepend);
+
+    setMkd(mkdArray.join(""));
+    textArea.current.focus();
+    textArea.current.setSelectionRange(0, end + offset);
   };
 
   const handleMarkdownInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    console.log(e.currentTarget.selectionStart);
     setMkd(e.currentTarget.value);
   };
 
